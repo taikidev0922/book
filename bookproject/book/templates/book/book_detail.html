@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block content %}
+<div>
+  <h2>{{ object.title }}</h2>
+  <p>{{ object.text }}</p>
+  <p>{{ object.get_category_display }}</p>
+  <a href="{% url 'update-book' object.pk %}">Edit</a>
+  <a href="{% url 'delete-book' object.pk %}">Delete</a>
+</div>
+{% endblock content %}
