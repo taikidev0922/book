@@ -1,6 +1,22 @@
 {% extends 'base.html' %} {% block content %}
-<form method="POST">
-  {% csrf_token %} {{form.as_p}}
-  <input type="submit" value="更新する" />
-</form>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card border-0 shadow">
+        <div class="card-header bg-primary text-white">
+          <h4 class="card-title text-center">書籍の更新</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %} 
+            {{ form.as_p }}
+            <div class="d-grid gap-2 mt-4">
+              <button type="submit" class="btn btn-primary btn-block btn-lg">更新する</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

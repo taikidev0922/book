@@ -1,17 +1,19 @@
-{% extends 'base.html' %} {% block title %} 書籍削除 {% endblock %} 
-{%block content%}
+{% extends 'base.html' %} {% block content %}
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card shadow-lg">
-        <div class="card-header bg-danger text-white">
-          <h3 class="card-title text-center">書籍削除の確認</h3>
+        <div class="card-header bg-dark text-white">
+          <h3 class="card-title text-center">ログイン</h3>
         </div>
         <div class="card-body">
           <form method="post" class="needs-validation" novalidate>
             {% csrf_token %}
+            <div class="form-group mb-3">{{ form.as_p }}</div>
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-danger btn-lg">削除</button>
+              <button type="submit" class="btn btn-dark btn-lg">
+                ログイン
+              </button>
             </div>
           </form>
         </div>
@@ -19,4 +21,4 @@
     </div>
   </div>
 </div>
-{%endblock%}
+{% endblock content %}

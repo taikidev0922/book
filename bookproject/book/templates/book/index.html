@@ -1,11 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1>書籍一覧</h1>
-  <ul>
+<div class="container mt-4">
+  <h1 class="mb-4 text-center text-primary">書籍一覧</h1>
+  <div class="row">
     {% for book in object_list %}
-      <li>
-        <a href="{% url 'detail-book' book.pk %}">{{ book.title }}</a>
-      </li>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-sm">
+        {% if book.thumbnail %}
+        <img
+          class="card-img-top"
+          src="{{ book.thumbnail.url }}"
+          alt="サムネイル"
+          style="object-fit: cover; width: 100%; height: auto">
+        {% else %}
+        <div class="card-header">サムネイルがありません。</div>
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">
+            <a
+              class="text-decoration-none"
+              href="{% url 'detail-book' book.pk %}">
+              {{ book.title }}
+            </a>
+          </h5>
+        </div>
+      </div>
+    </div>
     {% endfor %}
-  </ul>
+  </div>
+  <h2 class="mt-5 mb-3 text-center text-success">最新の書籍</h2>
+  <div class="list-group">
+    {% for book in page_obj %}
+    <a
+      href="{% url 'detail-book' book.pk %}"
+      class="list-group-item list-group-item-action flex-column align-items-start shadow">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ book.title }}</h5>
+        <small class="text-muted">
+          投稿日: {{ book.created_at|date:"Y-m-d" }}
+        </small>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% include 'book/components/pagination.html' with page_obj=page_obj %}
+</div>
+
 {% endblock content %}
+

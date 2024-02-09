@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block content %}
+<form method="POST" class="p-4 border rounded">
+  {% csrf_token %}
+  <div class="form-group mb-3">
+    <label for="book" class="form-label">本のタイトル</label>
+    <input
+      value="{{ book.title }}"
+      readonly
+      class="form-control-plaintext"
+      id="book"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label for="title" class="form-label">レビュータイトル</label>
+    <input type="text" name="title" id="title" class="form-control" required />
+  </div>
+  <div class="form-group mb-3">
+    <label for="text" class="form-label">レビュー内容</label>
+    <textarea
+      name="text"
+      id="text"
+      class="form-control"
+      rows="5"
+      required
+    ></textarea>
+  </div>
+  <div class="form-group mb-3">
+    <label for="rate" class="form-label">評価</label>
+    <select name="rate" id="rate" class="form-select">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <input type="hidden" name="book" value="{{ book.id }}" />
+  <button type="submit" class="btn btn-primary">送信</button>
+</form>
+{% endblock %}

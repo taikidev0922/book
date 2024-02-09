@@ -1,9 +1,33 @@
 {% extends 'base.html' %} {% block content %}
-<div>
-  <h2>{{ object.title }}</h2>
+<div class="container mt-4">
+  <h2 class="mb-3">{{ object.title }}</h2>
   <p>{{ object.text }}</p>
-  <p>{{ object.get_category_display }}</p>
-  <a href="{% url 'update-book' object.pk %}">Edit</a>
-  <a href="{% url 'delete-book' object.pk %}">Delete</a>
+  {% if object.thumbnail %}
+  <img
+    src="{{ object.thumbnail.url }}"
+    alt="{{ object.title }}"
+    class="img-fluid mb-3"
+  />
+  {% endif %}
+  <p class="badge bg-secondary">{{ object.get_category_display }}</p>
+  <h3 class="mt-4">レビュー一覧</h3>
+  {% for review in object.review_set.all %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">レビュアー: {{ review.user.username }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">評価: {{ review.rate }}</h6>
+      <p class="card-text">コメント: {{ review.text }}</p>
+    </div>
+  </div>
+  {% empty %}
+  <p>レビューはまだありません。</p>
+  {% endfor %}
+  <div class="mt-4">
+    <a href="{% url 'review' object.pk %}" class="btn btn-primary">Review</a>
+    <a href="{% url 'update-book' object.pk %}" class="btn btn-warning">Edit</a>
+    <a href="{% url 'delete-book' object.pk %}" class="btn btn-danger"
+      >Delete</a
+    >
+  </div>
 </div>
 {% endblock content %}
